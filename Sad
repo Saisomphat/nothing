@@ -24,7 +24,6 @@ do
 	Client = game.Players.LocalPlayer
 
 
-	-- \\ Module GetService // --
 
 	ReplicatedStorage = game:GetService('ReplicatedStorage')
 	RunService = game:GetService("RunService")
@@ -38,8 +37,7 @@ do
 	UserInputService = game:GetService("UserInputService")
 
 
-	-- \\ Normal Module // --
-	
+
 	PlayerGui = LocalPlayer.PlayerGui
 	Backpack = LocalPlayer.Backpack
 	request = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
@@ -103,44 +101,44 @@ if not _G['Normal Hub Table'].isWindows then
 	Frame.Position = UDim2.new(0.157012194, 0, 0.164366379, 0)
 	Frame.Size = UDim2.new(0, 115, 0, 49)
 
-ImageButton.Parent = Frame
-ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-ImageButton.BorderSizePixel = 0
-ImageButton.Active = true
-ImageButton.Draggable = true
-ImageButton.Position = UDim2.new(0.218742043, 0, -0.155235752, 0)
-ImageButton.Size = UDim2.new(0, 64, 0, 64)
+	ImageButton.Parent = Frame
+	ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ImageButton.BorderSizePixel = 0
+	ImageButton.Active = true
+	ImageButton.Draggable = true
+	ImageButton.Position = UDim2.new(0.218742043, 0, -0.155235752, 0)
+	ImageButton.Size = UDim2.new(0, 64, 0, 64)
 
--- Set initial image to "open"
-ImageButton.Image = "rbxassetid://965305329" -- Open image asset ID
-local isOpen = true -- Variable to track the state
+	-- Set initial image to "open"
+	ImageButton.Image = "rbxassetid://965305329" -- Open image asset ID
+	local isOpen = true -- Variable to track the state
 
-ImageButton.MouseButton1Click:Connect(function()
-    -- Animate the button size
-    ImageButton:TweenSize(UDim2.new(0, 60, 0, 60), Enum.EasingDirection.In, Enum.EasingStyle.Elastic, 0.1)
-    delay(0.1, function()
-        ImageButton:TweenSize(UDim2.new(0, 64, 0, 64), Enum.EasingDirection.Out, Enum.EasingStyle.Elastic, 0.1)
-    end)
+	ImageButton.MouseButton1Click:Connect(function()
+		-- Animate the button size
+		ImageButton:TweenSize(UDim2.new(0, 60, 0, 60), Enum.EasingDirection.In, Enum.EasingStyle.Elastic, 0.1)
+		delay(0.1, function()
+			ImageButton:TweenSize(UDim2.new(0, 64, 0, 64), Enum.EasingDirection.Out, Enum.EasingStyle.Elastic, 0.1)
+		end)
 
-    -- Toggle the image based on the state
-    if isOpen then
-        ImageButton.Image = "rbxassetid://965305329" -- Replace with close image asset ID
-    else
-        ImageButton.Image = "rbxassetid://965305329" -- Open image asset ID
-    end
-    isOpen = not isOpen -- Toggle the state
+		-- Toggle the image based on the state
+		if isOpen then
+			ImageButton.Image = "rbxassetid://965305329" -- Replace with close image asset ID
+		else
+			ImageButton.Image = "rbxassetid://965305329" -- Open image asset ID
+		end
+		isOpen = not isOpen -- Toggle the state
 
-    -- Simulate key presses
-    local VirtualInputManager = game:GetService("VirtualInputManager")
-    VirtualInputManager:SendKeyEvent(true,"RightControl",false,game)
-    VirtualInputManager:SendKeyEvent(false,"RightControl",false,game)
-    VirtualInputManager:SendKeyEvent(true,"LeftControl",false,game)
-    VirtualInputManager:SendKeyEvent(false,"LeftControl",false,game)
-end)
+		-- Simulate key presses
+		local VirtualInputManager = game:GetService("VirtualInputManager")
+		VirtualInputManager:SendKeyEvent(true,"RightControl",false,game)
+		VirtualInputManager:SendKeyEvent(false,"RightControl",false,game)
+		VirtualInputManager:SendKeyEvent(true,"LeftControl",false,game)
+		VirtualInputManager:SendKeyEvent(false,"LeftControl",false,game)
+	end)
 
-UICorner.CornerRadius = UDim.new(0, 100)
-UICorner.Parent = ImageButton
+	UICorner.CornerRadius = UDim.new(0, 100)
+	UICorner.Parent = ImageButton
 
 	UICorner_2.CornerRadius = UDim.new(0, 10)
 	UICorner_2.Parent = Frame
@@ -3205,6 +3203,40 @@ AllFuncs['Farm Fish'] = function()
 	end
 end
 
+AllFuncs['Cframe'] = function() 
+	while Config['CFrame'] and task.wait(3) do
+		local player = game.Players.LocalPlayer
+		local playerCharacter = player.Character or player.CharacterAdded:Wait()
+		local screenGui = Instance.new("ScreenGui")
+		local textLabel = Instance.new("TextLabel")
+
+		-- Create the ScreenGui
+		screenGui.Parent = player:WaitForChild("PlayerGui")
+		screenGui.Name = "CFrameDisplayGui"
+
+		-- Create the TextLabel
+		textLabel.Parent = screenGui
+		textLabel.Size = UDim2.new(0, 400, 0, 50)
+		textLabel.Position = UDim2.new(0, 10, 0, 10)
+		textLabel.BackgroundTransparency = 0.5
+		textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		textLabel.TextSize = 20
+		textLabel.Text = "CFrame: "
+
+		-- Function to update the text label with the player's CFrame
+		local function updateCFrameDisplay()
+			while Config['CFrame'] do
+				local playerCFrame = playerCharacter:WaitForChild("HumanoidRootPart").CFrame
+				textLabel.Text = "CFrame: " .. tostring(playerCFrame.Position)
+				task.wait(0.1) -- Update every 0.1 seconds
+			end
+		end
+
+		-- Start updating the CFrame display
+		updateCFrameDisplay()
+	end
+end
+
 
 AllFuncs['Sell Fish'] = function()
 	while Config['Sell Fish'] and task.wait(3) do
@@ -3450,18 +3482,18 @@ workspace.active.ChildAdded:Connect(function(child)
 end)
 
 Main = Tap.General:AddSection('General') do
-    SelectPosition = Main:AddParagraph({        
-        Title = "Position : N/A"
-    })
-    Toggle(Main, "Auto Farm Fish", "", "Farm Fish")
-    Toggle(Main, "Teleport To Select Position", "", "To Pos Stand")
-    Main:AddButton({
-        Title = "Select Position",
-        Callback = function()
-            Config['SelectPositionStand'] = LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame
-            SelectPosition:SetTitle("Position : " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.X)) .. " X " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Y)) .. " Y " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Z)) .. " Z")
-        end
-    })
+	SelectPosition = Main:AddParagraph({        
+		Title = "Position : N/A"
+	})
+	Toggle(Main, "Auto Farm Fish", "", "Farm Fish")
+	Toggle(Main, "Teleport To Select Position", "", "To Pos Stand")
+	Main:AddButton({
+		Title = "Select Position",
+		Callback = function()
+			Config['SelectPositionStand'] = LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame
+			SelectPosition:SetTitle("Position : " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.X)) .. " X " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Y)) .. " Y " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Z)) .. " Z")
+		end
+	})
 end
 
 IngredientList = {}
@@ -3628,7 +3660,7 @@ Event = Tap.Event:AddSection('Event') do
 			Notify("Not Found `"..Config["Ingredient Select"].."` ")
 		end
 	})
-	
+
 	Event:AddButton({
 		Title = "Refresh Ingredient",
 		Callback = function()
@@ -3678,7 +3710,7 @@ InfoFish = Tap.General:AddSection('Info Fish') do
 	InfoFavouriteBait = InfoFish:AddParagraph({        
 		Title = "FavouriteBait : N/A"
 	})
-	
+
 	Dropdown(InfoFish, "Select Fish", "", FishList, false, "Select Fish Info")
 	InfoFish:AddButton({
 		Title = "Get Info Fish In Hand",
@@ -3840,33 +3872,33 @@ MiscPlayer = Tap.Player:AddSection('Misc Player') do
 		end
 	})
 	MiscPlayer:AddButton({
-        Title = "Anti Lag ( Once )",
-        Description = "",
-        Callback = function()
-            for _, v in pairs(game:GetDescendants()) do
-                if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") then
-                    if v.Transparency ~= 1 then
-                        v.Material = Enum.Material.SmoothPlastic
-                    end
-                elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
-                    v:Destroy()
-                end
-            end
-            Notify("Anti Lag Success")
-        end
-    })
-    MiscPlayer:AddButton({
-        Title = "Destroy All Particle",
-        Description = "",
-        Callback = function()
-            for _, v in pairs(game:GetDescendants()) do
-                if v:IsA("ParticleEmitter") or v:IsA("Trail") then
-                    v:Destroy()
-                end
-            end
-            Notify("Success Destroy Particle")
-        end
-    })
+		Title = "Anti Lag ( Once )",
+		Description = "",
+		Callback = function()
+			for _, v in pairs(game:GetDescendants()) do
+				if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") then
+					if v.Transparency ~= 1 then
+						v.Material = Enum.Material.SmoothPlastic
+					end
+				elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+					v:Destroy()
+				end
+			end
+			Notify("Anti Lag Success")
+		end
+	})
+	MiscPlayer:AddButton({
+		Title = "Destroy All Particle",
+		Description = "",
+		Callback = function()
+			for _, v in pairs(game:GetDescendants()) do
+				if v:IsA("ParticleEmitter") or v:IsA("Trail") then
+					v:Destroy()
+				end
+			end
+			Notify("Success Destroy Particle")
+		end
+	})
 end
 
 Shoppy = Tap.Shop:AddSection('Shop All') do
@@ -3897,29 +3929,29 @@ Shoppy = Tap.Shop:AddSection('Shop All') do
 	end
 end
 Shoppy:AddButton({
-    Title = "Buy Enchant Relic",
-    Description = "View [11,000C$]",
-    Callback = function()
-        local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
+	Title = "Buy Enchant Relic",
+	Description = "View [11,000C$]",
+	Callback = function()
+		local player = game.Players.LocalPlayer
+		local character = player.Character or player.CharacterAdded:Wait()
 
--- Store the player's current position
-local previousPosition = character.HumanoidRootPart.Position
+		-- Store the player's current position
+		local previousPosition = character.HumanoidRootPart.Position
 
--- Teleport to the specified coordinates
-local targetPosition = Vector3.new(-931.5254516601562, 223.78355407714844, -986.8485717773438)
-character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
+		-- Teleport to the specified coordinates
+		local targetPosition = Vector3.new(-931.5254516601562, 223.78355407714844, -986.8485717773438)
+		character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
 
--- Fire the server function
-local merlin = workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Merlin"):WaitForChild("Merlin"):WaitForChild("power")
-merlin:InvokeServer()
+		-- Fire the server function
+		local merlin = workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Merlin"):WaitForChild("Merlin"):WaitForChild("power")
+		merlin:InvokeServer()
 
--- Wait for a brief moment before returning to the previous position
-wait(0)  -- Adjust the wait time if needed
+		-- Wait for a brief moment before returning to the previous position
+		wait(0)  -- Adjust the wait time if needed
 
--- Return to the previous position
-character:SetPrimaryPartCFrame(CFrame.new(previousPosition))
-    end
+		-- Return to the previous position
+		character:SetPrimaryPartCFrame(CFrame.new(previousPosition))
+	end
 })
 
 WebHookConfigs = Tap.Configs:AddSection('WebHook') do
@@ -3928,7 +3960,7 @@ WebHookConfigs = Tap.Configs:AddSection('WebHook') do
 	Slider(WebHookConfigs, "Delay Sending (Sec)", 10, 600, false, "Delay Sending")
 	Toggle(WebHookConfigs, "Sending WebHook","","Sending Webhook")
 	Toggle(WebHookConfigs, "Ping Discord Id","","Ping Discord Id")
-	
+
 	WebHookConfigs:AddButton({
 		Title = "Test WebHook",
 		Description = "",
@@ -3973,7 +4005,7 @@ GetCount = function(NameFish)
 			ReturnCound += 1
 		end
 	end
-	
+
 	return ReturnCound
 end
 
@@ -4014,112 +4046,112 @@ end
 
 Teleporting = Tap.Teleport:AddSection('Teleport') do
 	-- Teleporting button for "Sunstone Island"
-Teleporting:AddButton({
-    Title = "Sunstone Island",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-913.630615234375, 137.29348754882812, -1129.8995361328125)
-    end
-})
+	Teleporting:AddButton({
+		Title = "Sunstone Island",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-913.630615234375, 137.29348754882812, -1129.8995361328125)
+		end
+	})
 
--- Teleporting button for "Roslit Bay"
-Teleporting:AddButton({
-    Title = "Roslit Bay",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1501.675537109375, 133, 416.2070007324219)
-    end
-})
+	-- Teleporting button for "Roslit Bay"
+	Teleporting:AddButton({
+		Title = "Roslit Bay",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1501.675537109375, 133, 416.2070007324219)
+		end
+	})
 
--- Teleporting button for "Random Islands"
-Teleporting:AddButton({
-    Title = "Random Islands",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(237.6944580078125, 139.34976196289062, 43.103424072265625)
-    end
-})
+	-- Teleporting button for "Random Islands"
+	Teleporting:AddButton({
+		Title = "Random Islands",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(237.6944580078125, 139.34976196289062, 43.103424072265625)
+		end
+	})
 
--- Teleporting button for "Moosewood"
-Teleporting:AddButton({
-    Title = "Moosewood",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(433.7972106933594, 147.07003784179688, 261.80218505859375)
-    end
-})
+	-- Teleporting button for "Moosewood"
+	Teleporting:AddButton({
+		Title = "Moosewood",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(433.7972106933594, 147.07003784179688, 261.80218505859375)
+		end
+	})
 
--- Teleporting button for "Executive Headquarters"
-Teleporting:AddButton({
-    Title = "Executive Headquarters",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-36.46199035644531, -246.55001831054688, 205.77120971679688)
-    end
-})
+	-- Teleporting button for "Executive Headquarters"
+	Teleporting:AddButton({
+		Title = "Executive Headquarters",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-36.46199035644531, -246.55001831054688, 205.77120971679688)
+		end
+	})
 
--- Teleporting button for "Enchant Room"
-Teleporting:AddButton({
-    Title = "Enchant Room",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1310.048095703125, -805.292236328125, -162.34507751464844)
-    end
-})
+	-- Teleporting button for "Enchant Room"
+	Teleporting:AddButton({
+		Title = "Enchant Room",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1310.048095703125, -805.292236328125, -162.34507751464844)
+		end
+	})
 
--- Teleporting button for "Statue Of Sovereignty"
-Teleporting:AddButton({
-    Title = "Statue Of Sovereignty",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(22.098665237426758, 159.01470947265625, -1039.8543701171875)
-    end
-})
+	-- Teleporting button for "Statue Of Sovereignty"
+	Teleporting:AddButton({
+		Title = "Statue Of Sovereignty",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(22.098665237426758, 159.01470947265625, -1039.8543701171875)
+		end
+	})
 
--- Teleporting button for "Mushgrove Swamp"
-Teleporting:AddButton({
-    Title = "Mushgrove Swamp",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2442.805908203125, 130.904052734375, -686.1648559570312)
-    end
-})
+	-- Teleporting button for "Mushgrove Swamp"
+	Teleporting:AddButton({
+		Title = "Mushgrove Swamp",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2442.805908203125, 130.904052734375, -686.1648559570312)
+		end
+	})
 
--- Teleporting button for "Snowcap Island"
-Teleporting:AddButton({
-    Title = "Snowcap Island",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2589.534912109375, 134.9249267578125, 2333.099365234375)
-    end
-})
+	-- Teleporting button for "Snowcap Island"
+	Teleporting:AddButton({
+		Title = "Snowcap Island",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2589.534912109375, 134.9249267578125, 2333.099365234375)
+		end
+	})
 
--- Teleporting button for "Terrapin Island"
-Teleporting:AddButton({
-    Title = "Terrapin Island",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(152.3716278076172, 154.91015625, 2000.9171142578125)
-    end
-})
+	-- Teleporting button for "Terrapin Island"
+	Teleporting:AddButton({
+		Title = "Terrapin Island",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(152.3716278076172, 154.91015625, 2000.9171142578125)
+		end
+	})
 
--- Teleporting button for "Terrapin Island"
-Teleporting:AddButton({
-    Title = "Enchant Relic",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1309.2784423828125, -802.427001953125, -83.36397552490234)
-    end
-})
+	-- Teleporting button for "Terrapin Island"
+	Teleporting:AddButton({
+		Title = "Enchant Relic",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1309.2784423828125, -802.427001953125, -83.36397552490234)
+		end
+	})
 
--- Teleporting button for "Terrapin Island"
-Teleporting:AddButton({
-    Title = "Best Spot",
-    Callback = function()
-    local forceFieldPart = Instance.new("Part") -- Create a new part
-forceFieldPart.Size = Vector3.new(10, 1, 10) -- Set the size of the part (10x1x10)
-forceFieldPart.Position = Vector3.new(1447.8507080078125, 131.49998474121094, -7649.64501953125) -- Adjusted position (2 units lower)
-forceFieldPart.Anchored = true -- Make sure the part does not fall
-forceFieldPart.BrickColor = BrickColor.new("White") -- Set the color of the part to white
-forceFieldPart.Material = Enum.Material.SmoothPlastic -- Set the material of the part
-forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
+	-- Teleporting button for "Terrapin Island"
+	Teleporting:AddButton({
+		Title = "Best Spot",
+		Callback = function()
+			local forceFieldPart = Instance.new("Part") -- Create a new part
+			forceFieldPart.Size = Vector3.new(10, 1, 10) -- Set the size of the part (10x1x10)
+			forceFieldPart.Position = Vector3.new(1447.8507080078125, 131.49998474121094, -7649.64501953125) -- Adjusted position (2 units lower)
+			forceFieldPart.Anchored = true -- Make sure the part does not fall
+			forceFieldPart.BrickColor = BrickColor.new("White") -- Set the color of the part to white
+			forceFieldPart.Material = Enum.Material.SmoothPlastic -- Set the material of the part
+			forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
 
--- Create a ForceField
-local forceField = Instance.new("ForceField") -- Create a new ForceField object
-forceField.Parent = forceFieldPart -- Parent the ForceField to the part
-wait()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1447.8507080078125, 133.49998474121094, -7649.64501953125)
-    end
-})
+			-- Create a ForceField
+			local forceField = Instance.new("ForceField") -- Create a new ForceField object
+			forceField.Parent = forceFieldPart -- Parent the ForceField to the part
+			wait()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1447.8507080078125, 133.49998474121094, -7649.64501953125)
+		end
+	})
 end
 
 
@@ -4147,24 +4179,24 @@ function sendwebhook(url, data)
 end
 
 local Old = os.time()
-	task.spawn(function(InitializeService)
-		warn("ANTI AFK STARTING")
-		pcall(function()
-			for i,v in pairs(getconnections(Client.Idled)) do
-				v:Disable() 
-			end
-			Client.Idled:connect(function()
-				game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-				wait(1)
-				game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-			end)
-			while wait(300) do
-				game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-				wait(1)
-				game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-			end
+task.spawn(function(InitializeService)
+	warn("ANTI AFK STARTING")
+	pcall(function()
+		for i,v in pairs(getconnections(Client.Idled)) do
+			v:Disable() 
+		end
+		Client.Idled:connect(function()
+			game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+			wait(1)
+			game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 		end)
+		while wait(300) do
+			game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+			wait(1)
+			game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+		end
 	end)
+end)
 do
 	Settings_M = Tap.Settings:AddSection("Misc") do
 		Timeing = Settings_M:AddParagraph({        
@@ -4198,11 +4230,12 @@ do
 	SaveManager:LoadAutoloadConfig()
 	Fluent:SetTheme("Normal Theme")
 	setfflag("TaskSchedulerTargetFps", "1000")
-setfpscap(120)
-while true do
-    if (game:GetService("Workspace").DistributedGameTime % 1 * 60) > 30 then
-        setfpscap(120)
-    end
-    wait(0)
+	setfpscap(120)
+	while true do
+		if (game:GetService("Workspace").DistributedGameTime % 1 * 60) > 30 then
+			setfpscap(120)
+		end
+		wait(0)
+	end
 end
-end
+
