@@ -4,7 +4,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
 	Title = "Lao Kham",
-	SubTitle = "GO AWAY",
+	SubTitle = "FLY AWAY",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
 	Acrylic = false, 
@@ -4144,6 +4144,48 @@ Teleporting = Tap.Teleport:AddSection('Teleport') do
 		Title = "Anient secret kham",
 		Callback = function()
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1692.7, -902.5, 1444.1)
+		end
+	})
+	
+	Teleporting:AddButton({
+		Title = "isla",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5799.9, 135.3, 405)
+		end
+	})
+
+	Teleporting:AddButton({
+		Title = "deep",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1510.9, -234.7, -2852.9)
+		end
+	})
+	
+	Teleporting:AddButton({
+		Title = "deep",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1797, 142.7, -3404.6)
+		end
+	})
+
+	Teleporting:AddButton({
+		Title = "deepshop",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-979.2 -244.9, -2699.9)
+		end
+	})
+
+	Teleporting:AddButton({
+		Title = "secret",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3160, -745.6, 1684.2)
+		end
+	})
+
+	Teleporting:AddButton({
+		Title = "Costas Abandonaada's",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2673.4, 170.5, 1743.9)
 		end
 	})
 
