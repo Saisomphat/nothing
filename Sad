@@ -4171,7 +4171,7 @@ Teleporting = Tap.Teleport:AddSection('Teleport') do
 	Teleporting:AddButton({
 		Title = "deepshop",
 		Callback = function()
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-979.2 -244.9, -2699.9)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-979.2, -244.9, -2699.9)
 		end
 	})
 
@@ -4186,6 +4186,13 @@ Teleporting = Tap.Teleport:AddSection('Teleport') do
 		Title = "Costas Abandonaada's",
 		Callback = function()
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2673.4, 170.5, 1743.9)
+		end
+	})
+
+	Teleporting:AddButton({
+		Title = "Soon???",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3540, 143.4, 488.4)
 		end
 	})
 
