@@ -4,7 +4,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
 	Title = "Lao Kham",
-	SubTitle = "GO AWA",
+	SubTitle = "GO AWAY",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
 	Acrylic = false, 
@@ -4130,6 +4130,13 @@ Teleporting = Tap.Teleport:AddSection('Teleport') do
 		Title = "Enchant Relic",
 		Callback = function()
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1309.2784423828125, -802.427001953125, -83.36397552490234)
+		end
+	})
+	
+	Teleporting:AddButton({
+		Title = "DEEP TEST",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(978.1, -701.2, 1255.5)
 		end
 	})
 
