@@ -4134,7 +4134,7 @@ Teleporting = Tap.Teleport:AddSection('Teleport') do
 	})
 	
 	Teleporting:AddButton({
-		Title = "DEEP TEST",
+		Title = "Anient kham",
 		Callback = function()
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(978.1, -701.2, 1255.5)
 		end
