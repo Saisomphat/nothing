@@ -4162,9 +4162,9 @@ Teleporting = Tap.Teleport:AddSection('Teleport') do
 	})
 	
 	Teleporting:AddButton({
-		Title = "deep",
+		Title = "Piscina Ácida Desolada",
 		Callback = function()
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1797, 142.7, -3404.6)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1792.6, -143.4, -3296.9)
 		end
 	})
 
