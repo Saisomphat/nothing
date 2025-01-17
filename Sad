@@ -4140,6 +4140,13 @@ Teleporting = Tap.Teleport:AddSection('Teleport') do
 		end
 	})
 
+     Teleporting:AddButton({
+		Title = "Vertigo",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(103.5, -515.3, 1136.6)
+		end
+	})      
+                            
 	Teleporting:AddButton({
 		Title = "Anient secret kham",
 		Callback = function()
@@ -4301,4 +4308,3 @@ do
 		wait(0)
 	end
 end
-
