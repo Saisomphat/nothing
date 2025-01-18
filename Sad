@@ -3886,14 +3886,8 @@ MiscPlayer = Tap.Player:AddSection('Misc Player') do
 		Description = "",
 		Callback = function(V)
 			_G.Job = V
-		end
-	})
-	MiscPlayer:AddButton({
-		Title = "Join Server",
-		Description = "",
-		Callback = function()
 			game:GetService("TeleportService"):TeleportToPlaceInstance(game.placeId,_G.Job, game.Players.LocalPlayer)
-			end)
+		end
 	})
 	MiscPlayer:AddButton({
 		Title = "Anti Lag ( Once )",
