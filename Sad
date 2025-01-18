@@ -3872,6 +3872,30 @@ MiscPlayer = Tap.Player:AddSection('Misc Player') do
 		end
 	})
 	MiscPlayer:AddButton({
+		Title = "Copy Job Id",
+		Description = "",
+		Callback = function()
+			setclipboard(tostring(game.JobId))
+			if AllFuncs and AllFuncs["Job Id"] then
+				AllFuncs["Job Id"](false)
+			end
+		end
+	})
+	MiscPlayer:TextBox({
+		Title = "Place job id",
+		Description = "",
+		Callback = function(V)
+			_G.Job = V
+		end
+	})
+	MiscPlayer:AddButton({
+		Title = "Join Server",
+		Description = "",
+		Callback = function()
+			game:GetService("TeleportService"):TeleportToPlaceInstance(game.placeId,_G.Job, game.Players.LocalPlayer)
+			end)
+	})
+	MiscPlayer:AddButton({
 		Title = "Anti Lag ( Once )",
 		Description = "",
 		Callback = function()
@@ -4132,7 +4156,7 @@ Teleporting = Tap.Teleport:AddSection('Teleport') do
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1309.2784423828125, -802.427001953125, -83.36397552490234)
 		end
 	})
-	
+
 	Teleporting:AddButton({
 		Title = "Anient kham",
 		Callback = function()
@@ -4140,20 +4164,20 @@ Teleporting = Tap.Teleport:AddSection('Teleport') do
 		end
 	})
 
-     Teleporting:AddButton({
+	Teleporting:AddButton({
 		Title = "Vertigo",
 		Callback = function()
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(103.5, -515.3, 1136.6)
 		end
 	})      
-                            
+
 	Teleporting:AddButton({
 		Title = "Anient secret kham",
 		Callback = function()
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1692.7, -902.5, 1444.1)
 		end
 	})
-	
+
 	Teleporting:AddButton({
 		Title = "isla",
 		Callback = function()
@@ -4167,7 +4191,7 @@ Teleporting = Tap.Teleport:AddSection('Teleport') do
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1510.9, -234.7, -2852.9)
 		end
 	})
-	
+
 	Teleporting:AddButton({
 		Title = "Piscina Ácida Desolada",
 		Callback = function()
