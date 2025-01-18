@@ -4,7 +4,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
 	Title = "Lao Kham",
-	SubTitle = "FLY AWAY:(",
+	SubTitle = "FLY AWAY",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
 	Acrylic = false, 
@@ -3964,42 +3964,76 @@ Shoppy:AddButton({
 	end
 })
 
-WebHookConfigs = Tap.Configs:AddSection('WebHook') do
-	TextBox(WebHookConfigs, "WebHook","","discord.com/api/webhooks", false, "WebHook Configs")
-	TextBox(WebHookConfigs, "Discord Id","","1010021431075155979", false, "Discord Id Ping")
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local LocalPlayer = Players.LocalPlayer
+
+-- Assuming Config is a predefined table for configurations
+local Config = {
+	["WebHook Configs"] = "",
+	["Discord Id"] = "1010021431075155979",
+	["Server"] = "",
+	["Ping Discord Id"] = false,
+	["Delay Sending"] = 10,
+	["Sending WebHook"] = false
+}
+
+-- Functions that might be custom-defined elsewhere
+local function sendwebhook(url, payload)
+	-- Example implementation of sendwebhook (should be replaced with actual implementation)
+	print("Sending webhook to:", url)
+	print("Payload:", payload)
+	return true
+end
+
+local function Notify(message, duration)
+	print("Notification:", message, "Duration:", duration)
+end
+
+local function GetPlayerProfile()
+	return "https://www.roblox.com/headshot-thumbnail/image?userId=" .. LocalPlayer.UserId .. "&width=420&height=420&format=png"
+end
+
+local WebHookConfigs = Tap.Configs:AddSection('WebHook') do
+	TextBox(WebHookConfigs, "WebHook", "", "discord.com/api/webhooks", false, "WebHook Configs")
+	TextBox(WebHookConfigs, "Discord Id", "", Config["Discord Id"], false, "Discord Id Ping")
+	TextBox(WebHookConfigs, "Server", "", Config["Server"], false, "")
+
 	Slider(WebHookConfigs, "Delay Sending (Sec)", 10, 600, false, "Delay Sending")
-	Toggle(WebHookConfigs, "Sending WebHook","","Sending Webhook")
-	Toggle(WebHookConfigs, "Ping Discord Id","","Ping Discord Id")
+	Toggle(WebHookConfigs, "Sending WebHook", "", "Sending Webhook")
+	Toggle(WebHookConfigs, "Ping Discord Id", "", "Ping Discord Id")
 
 	WebHookConfigs:AddButton({
 		Title = "Test WebHook",
 		Description = "",
 		Callback = function()
-			local SendingSuccess = sendwebhook(Config['WebHook Configs'], {
-				["content"] = ((Config['Ping Discord Id'] and tostring(Config['"Discord Id']) ~= "") and "<@"..tostring(Config['"Discord Id'])..">"),
+			local payload = {
+				["content"] = (Config["Ping Discord Id"] and Config["Discord Id"] ~= "") and "<@" .. Config["Discord Id"] .. ">" or nil,
 				["embeds"] = {
 					{
-						["id"]= 661605297,
-						["title"]= "Fisch Notify",
-						["description"] = "** Player : "..LocalPlayer.Name.."\n THIS TESTING WEBHOOK**",
-						["color"]= 8646911,
-						["fields"]= {},
-						["thumbnail"]= {
-							["url"]= GetPlayerProfile()
+						["id"] = 661605297,
+						["title"] = "Fisch Notify",
+						["description"] = "**Player: " .. LocalPlayer.Name .. "\n THIS IS A TEST WEBHOOK**",
+						["color"] = 8646911,
+						["fields"] = {},
+						["thumbnail"] = {
+							["url"] = GetPlayerProfile()
 						},
-						["footer"]= {
-							["text"]  = "Normal Hub Notify",
-							["icon_url"] = "https://cdn.discordapp.com/attachments/971367335405449246/1259442279672844308/Profile_1.png?ex=66fbc206&is=66fa7086&hm=0b8898eb98938e100ad3cede12d0a526d344cd3ba7d4f737f728ca188a1af027&"
+						["footer"] = {
+							["text"] = "Normal Hub Notify",
+							["icon_url"] = "https://cdn.discordapp.com/attachments/971367335405449246/1259442279672844308/Profile_1.png"
 						}
 					}
 				}
-			})
+			}
+
+			local SendingSuccess = sendwebhook(Config["WebHook Configs"], payload)
 			if SendingSuccess then
 				Notify("Sending WebHook Success", 1)
 			else
 				Notify("Failed Sending WebHook!", 1)
 			end
-		end,
+		end
 	})
 end
 local TableZum = {}
