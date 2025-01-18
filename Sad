@@ -4,7 +4,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
 	Title = "Lao Kham",
-	SubTitle = "FLY AWAY",
+	SubTitle = "FLY AWAY:(",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
 	Acrylic = false, 
@@ -3963,6 +3963,74 @@ Shoppy:AddButton({
 		character:SetPrimaryPartCFrame(CFrame.new(previousPosition))
 	end
 })
+Shoppy = Tap.Shop:AddSection('Heaven Rod') do
+	Shoppy:AddButton({
+		Title = "Checkpoint 1",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(401.8, 137.8, 269.4)
+		end
+	})
+	Shoppy:AddButton({
+		Title = "Checkpoint 2",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1720.6, 148, 733.5)
+		end
+	})
+	Shoppy:AddButton({
+		Title = "Checkpoint 3",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2569.2, 181.2, 1348.4)
+		end
+	})
+	Shoppy:AddButton({
+		Title = "Checkpoint 4",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2925.3, 281.8, 2587.8)
+		end
+	})
+	Shoppy:AddButton({
+		Title = "Checkpoint 5",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5499, 143.5, -309.3)
+		end
+	})
+	Shoppy:AddButton({
+		Title = "Teleport to tree",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(19506.3, 335.4, 5541.2)
+		end
+	})
+	Shoppy:AddButton({
+		Title = "Teleport to blue crystal",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(20125.7, 208.4, 5442.5)
+		end
+	})
+	Shoppy:AddButton({
+		Title = "Teleport to NPC",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(19879.6, 448.1, 5557.8)
+		end
+	})
+	Shoppy:AddButton({
+		Title = "Teleport to Pickaxe",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(19779, 415.4, 5394.3)
+		end
+	})
+	Shoppy:AddButton({
+		Title = "Teleport to Pickaxe",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(19779, 415.4, 5394.3)
+		end
+	})
+	Shoppy:AddButton({
+		Title = "Teleport to Crystal",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(19963.7, 1139, 5349.7)
+		end
+	})
+end
 
 local Players = game:GetService("Players")
 local TeleportService = game:GetService("TeleportService")
