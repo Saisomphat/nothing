@@ -3881,14 +3881,6 @@ MiscPlayer = Tap.Player:AddSection('Misc Player') do
 			end
 		end
 	})
-	MiscPlayer:TextBox({
-		Title = "Place job id",
-		Description = "",
-		Callback = function(V)
-			_G.Job = V
-			game:GetService("TeleportService"):TeleportToPlaceInstance(game.placeId,_G.Job, game.Players.LocalPlayer)
-		end
-	})
 	MiscPlayer:AddButton({
 		Title = "Anti Lag ( Once )",
 		Description = "",
