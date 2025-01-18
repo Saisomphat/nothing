@@ -4,7 +4,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
 	Title = "Lao Kham",
-	SubTitle = "FLY AWAY:(",
+	SubTitle = "FLY AWAY",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
 	Acrylic = false, 
@@ -4419,4 +4419,72 @@ do
 		end
 		wait(0)
 	end
+	
+	local HttpService = game:GetService("HttpService")
+	local Lighting = game:GetService("Lighting")
+	local Workspace = game:GetService("Workspace")
+	local Players = game:GetService("Players")
+
+	-- Webhook URLs
+	local auroraWebhook = "https://discord.com/api/webhooks/1330081283233157171/XqLlpWBeaqpqKu_1_QIjoYHYely4vbQzxiBnzA6t0TgORL0aA0F2A6cLQcPrQlShGush"
+	local megalodonWebhook = "https://discord.com/api/webhooks/1330082006461190246/g6qE450AvxBZOGzZ-fQJOC0wmF_9d0Wx-gDK_PI3Br1DAFsa_TmQemNjAorS2a_3M4ze"
+
+	-- Function to send notification to Discord
+	local function sendNotification(webhookUrl, title, description, code)
+		local payload = {
+			embeds = {{
+				title = title,
+				description = description,
+				color = 16711680, -- Red color for the embed
+				fields = {{
+					name = "Code",
+					value = code
+				}}
+			}}
+		}
+		local jsonData = HttpService:JSONEncode(payload)
+		HttpService:PostAsync(webhookUrl, jsonData, Enum.HttpContentType.ApplicationJson)
+	end
+
+	-- Check Aurora
+	local function checkAurora()
+		local ambient = Lighting.Ambient
+		if ambient.R == 140 and ambient.G == 142 and ambient.B == 222 then
+			sendNotification(auroraWebhook, "Aurora Detected", "Ambient color matches Aurora settings.", "AURORA_CODE_123")
+		end
+	end
+
+	-- Check Megalodon
+	local function checkMegalodon()
+		local megalodon = Workspace:FindFirstChild("Megalodon Default")
+		if megalodon then
+			sendNotification(megalodonWebhook, "Megalodon Found", "Megalodon Default has been detected in Workspace.", "MEGALODON_CODE_456")
+		end
+	end
+
+	-- Check Player Count
+	local function checkPlayerCount()
+		local playerCount = #Players:GetPlayers()
+		local description = "Current player count in the server: " .. playerCount
+		sendNotification(auroraWebhook, "Player Count Update", description, "PLAYER_COUNT_CODE_789")
+		sendNotification(megalodonWebhook, "Player Count Update", description, "PLAYER_COUNT_CODE_789")
+	end
+
+	-- Copy JobId to Clipboard
+	local function copyJobIdToClipboard()
+		local jobId = tostring(game.JobId)
+		setclipboard(jobId)
+		print("JobId copied to clipboard: " .. jobId)
+	end
+
+	-- Periodic Checks
+	while true do
+		checkAurora()
+		checkMegalodon()
+		checkPlayerCount()
+		copyJobIdToClipboard()
+		wait(5) -- Check every 5 seconds
+	end
+
 end
+
