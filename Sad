@@ -4,7 +4,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
 	Title = "Lao Kham",
-	SubTitle = "FLY AWAY",
+	SubTitle = "FLY AWA",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
 	Acrylic = false, 
@@ -3799,53 +3799,7 @@ MiscPlayer = Tap.Player:AddSection('Misc Player') do
 	Toggle(MiscPlayer, "Infinite Oxygen", "", "Infinite Oxygen", function(Value)
 		LocalPlayer.Character.client.oxygen.Disabled = Value
 	end)
-	MiscPlayer:AddButton({
-		Title = "Hop Server Low",
-		Description = "",
-		Callback = function()
-			AllFuncs.HopServer(false)
-		end
-	})
-	MiscPlayer:AddButton({
-		Title = "Copy Job Id",
-		Description = "",
-		Callback = function()
-			setclipboard(tostring(game.JobId))
-			if AllFuncs and AllFuncs["Job Id"] then
-				AllFuncs["Job Id"](false)
-			end
-		end
-	})
-	MiscPlayer:AddButton({
-		Title = "Anti Lag ( Once )",
-		Description = "",
-		Callback = function()
-			for _, v in pairs(game:GetDescendants()) do
-				if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") then
-					if v.Transparency ~= 1 then
-						v.Material = Enum.Material.SmoothPlastic
-					end
-				elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
-					v:Destroy()
-				end
-			end
-			Notify("Anti Lag Success")
-		end
-	})
-	MiscPlayer:AddButton({
-		Title = "Destroy All Particle",
-		Description = "",
-		Callback = function()
-			for _, v in pairs(game:GetDescendants()) do
-				if v:IsA("ParticleEmitter") or v:IsA("Trail") then
-					v:Destroy()
-				end
-			end
-			Notify("Success Destroy Particle")
-		end
-	})
-end
-
+	
 Shoppy = Tap.Shop:AddSection('Shop All') do
 	Toggle(Shoppy, "Teleport To Buy", "", "Teleport To Buy")
 	for i,v in pairs(workspace.world.interactables:GetDescendants()) do
