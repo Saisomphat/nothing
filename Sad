@@ -4,7 +4,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
 	Title = "Lao Kham",
-	SubTitle = "FLY AWA",
+	SubTitle = "FLY AWAY",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
 	Acrylic = false, 
@@ -3799,71 +3799,6 @@ MiscPlayer = Tap.Player:AddSection('Misc Player') do
 	Toggle(MiscPlayer, "Infinite Oxygen", "", "Infinite Oxygen", function(Value)
 		LocalPlayer.Character.client.oxygen.Disabled = Value
 	end)
-	Toggle(MiscPlayer, "Weather Clear", "", "Weather Clear", function(Value)
-		local OldWEA = ReplicatedStorage.world.weather.Value
-		if Value then
-			ReplicatedStorage.world.weather.Value = 'Clear' 
-		else
-			ReplicatedStorage.world.weather.Value = OldWEA
-		end
-	end)
-	Toggle(MiscPlayer, "Noclip", "", "Toggle Noclip")
-	Toggle(MiscPlayer, "Walk On Water", "", "Toggle Walk On Water", function(Value)
-		for i,v in pairs(workspace.zones.fishing:GetChildren()) do
-			if v.Name == "Ocean" then
-				v.CanCollide = Value
-			end
-		end
-	end)
-	Toggle(MiscPlayer, "Remove Fog", "", "Remove Fog", function(Value)
-		if Value then
-			if game:GetService("Lighting"):FindFirstChild("Sky") then
-				game:GetService("Lighting"):FindFirstChild("Sky").Parent = game:GetService("Lighting").bloom
-			end
-		else
-			if game:GetService("Lighting").bloom:FindFirstChild("Sky") then
-				game:GetService("Lighting").bloom:FindFirstChild("Sky").Parent = game:GetService("Lighting")
-			end
-		end
-	end)
-	Toggle(MiscPlayer, "Day Only", "", "Day Only", function(Value)
-		if Value then
-			DayOnlyLoop = RunService.Heartbeat:Connect(function()
-				game:GetService("Lighting").TimeOfDay = "12:00:00"
-			end)
-		else
-			if DayOnlyLoop then
-				DayOnlyLoop:Disconnect()
-				DayOnlyLoop = nil
-			end
-		end
-	end)
-	Toggle(MiscPlayer, "Night Only", "", "Night Only", function(Value)
-		if Value then
-			DayOnlyLoop = RunService.Heartbeat:Connect(function()
-				game:GetService("Lighting").TimeOfDay = "22:00:00"
-			end)
-		else
-			if DayOnlyLoop then
-				DayOnlyLoop:Disconnect()
-				DayOnlyLoop = nil
-			end
-		end
-	end)	
-	MiscPlayer:AddButton({
-		Title = "Rejoin Server",
-		Description = "",
-		Callback = function()
-			TeleportService:TeleportToPlaceInstance(game.placeId, game.jobId, game.Players.LocalPlayer);
-		end,
-	})
-	MiscPlayer:AddButton({
-		Title = "Hop Server",
-		Description = "",
-		Callback = function()
-			AllFuncs.HopServer(true)
-		end
-	})
 	MiscPlayer:AddButton({
 		Title = "Hop Server Low",
 		Description = "",
@@ -4420,4 +4355,3 @@ do
 		wait(0)
 	end
 end
-
