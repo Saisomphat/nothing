@@ -5,7 +5,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
 	Title = "Lao Kham",
-	SubTitle = "FLY AWAY",
+	SubTitle = "FLY AWA",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
 	Acrylic = false, 
@@ -3797,9 +3797,7 @@ MiscPlayer = Tap.Player:AddSection('Misc Player') do
 			PlayerGui.hud.safezone.backpack.inventory.Sell.sellall.Disabled = false
 		end
 	end)
-	Toggle(MiscPlayer, "Infinite Oxygen", "", "Infinite Oxygen", function(Value)
-		LocalPlayer.Character.client.oxygen.Disabled = Value
-	end)
+
 	other = Tap:AddSection('other') do
 		other:AddButton({
 			Title = "Sunstone Island",
