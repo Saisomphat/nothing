@@ -3797,166 +3797,120 @@ MiscPlayer = Tap.Player:AddSection('Misc Player') do
 			PlayerGui.hud.safezone.backpack.inventory.Sell.sellall.Disabled = false
 		end
 	end)
-
-	other = Tap:AddSection('other') do
-		other:AddButton({
-			Title = "Sunstone Island",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-913.630615234375, 137.29348754882812, -1129.8995361328125)
+	Toggle(MiscPlayer, "Infinite Oxygen", "", "Infinite Oxygen", function(Value)
+		LocalPlayer.Character.client.oxygen.Disabled = Value
+	end)
+	Toggle(MiscPlayer, "Weather Clear", "", "Weather Clear", function(Value)
+		local OldWEA = ReplicatedStorage.world.weather.Value
+		if Value then
+			ReplicatedStorage.world.weather.Value = 'Clear' 
+		else
+			ReplicatedStorage.world.weather.Value = OldWEA
+		end
+	end)
+	Toggle(MiscPlayer, "Noclip", "", "Toggle Noclip")
+	Toggle(MiscPlayer, "Walk On Water", "", "Toggle Walk On Water", function(Value)
+		for i,v in pairs(workspace.zones.fishing:GetChildren()) do
+			if v.Name == "Ocean" then
+				v.CanCollide = Value
 			end
-		})
-
-		-- Teleporting button for "Roslit Bay"
-		other:AddButton({
-			Title = "Roslit Bay",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1501.675537109375, 133, 416.2070007324219)
+		end
+	end)
+	Toggle(MiscPlayer, "Remove Fog", "", "Remove Fog", function(Value)
+		if Value then
+			if game:GetService("Lighting"):FindFirstChild("Sky") then
+				game:GetService("Lighting"):FindFirstChild("Sky").Parent = game:GetService("Lighting").bloom
 			end
-		})
-
-		-- Teleporting button for "Random Islands"
-		other:AddButton({
-			Title = "Random Islands",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(237.6944580078125, 139.34976196289062, 43.103424072265625)
+		else
+			if game:GetService("Lighting").bloom:FindFirstChild("Sky") then
+				game:GetService("Lighting").bloom:FindFirstChild("Sky").Parent = game:GetService("Lighting")
 			end
-		})
-
-		-- Teleporting button for "Moosewood"
-		other:AddButton({
-			Title = "Moosewood",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(433.7972106933594, 147.07003784179688, 261.80218505859375)
+		end
+	end)
+	Toggle(MiscPlayer, "Day Only", "", "Day Only", function(Value)
+		if Value then
+			DayOnlyLoop = RunService.Heartbeat:Connect(function()
+				game:GetService("Lighting").TimeOfDay = "12:00:00"
+			end)
+		else
+			if DayOnlyLoop then
+				DayOnlyLoop:Disconnect()
+				DayOnlyLoop = nil
 			end
-		})
-
-		-- Teleporting button for "Executive Headquarters"
-		other:AddButton({
-			Title = "Executive Headquarters",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-36.46199035644531, -246.55001831054688, 205.77120971679688)
+		end
+	end)
+	Toggle(MiscPlayer, "Night Only", "", "Night Only", function(Value)
+		if Value then
+			DayOnlyLoop = RunService.Heartbeat:Connect(function()
+				game:GetService("Lighting").TimeOfDay = "22:00:00"
+			end)
+		else
+			if DayOnlyLoop then
+				DayOnlyLoop:Disconnect()
+				DayOnlyLoop = nil
 			end
-		})
-
-		-- Teleporting button for "Enchant Room"
-		other:AddButton({
-			Title = "Enchant Room",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1310.048095703125, -805.292236328125, -162.34507751464844)
+		end
+	end)	
+	MiscPlayer:AddButton({
+		Title = "Rejoin Server",
+		Description = "",
+		Callback = function()
+			TeleportService:TeleportToPlaceInstance(game.placeId, game.jobId, game.Players.LocalPlayer);
+		end,
+	})
+	MiscPlayer:AddButton({
+		Title = "Hop Server",
+		Description = "",
+		Callback = function()
+			AllFuncs.HopServer(true)
+		end
+	})
+	MiscPlayer:AddButton({
+		Title = "Hop Server Low",
+		Description = "",
+		Callback = function()
+			AllFuncs.HopServer(false)
+		end
+	})
+	MiscPlayer:AddButton({
+		Title = "Copy Job Id",
+		Description = "",
+		Callback = function()
+			setclipboard(tostring(game.JobId))
+			if AllFuncs and AllFuncs["Job Id"] then
+				AllFuncs["Job Id"](false)
 			end
-		})
-
-		-- Teleporting button for "Statue Of Sovereignty"
-		other:AddButton({
-			Title = "Statue Of Sovereignty",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(22.098665237426758, 159.01470947265625, -1039.8543701171875)
+		end
+	})
+	MiscPlayer:AddButton({
+		Title = "Anti Lag ( Once )",
+		Description = "",
+		Callback = function()
+			for _, v in pairs(game:GetDescendants()) do
+				if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") then
+					if v.Transparency ~= 1 then
+						v.Material = Enum.Material.SmoothPlastic
+					end
+				elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+					v:Destroy()
+				end
 			end
-		})
-
-		-- Teleporting button for "Mushgrove Swamp"
-		other:AddButton({
-			Title = "Mushgrove Swamp",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2442.805908203125, 130.904052734375, -686.1648559570312)
+			Notify("Anti Lag Success")
+		end
+	})
+	MiscPlayer:AddButton({
+		Title = "Destroy All Particle",
+		Description = "",
+		Callback = function()
+			for _, v in pairs(game:GetDescendants()) do
+				if v:IsA("ParticleEmitter") or v:IsA("Trail") then
+					v:Destroy()
+				end
 			end
-		})
-
-		-- Teleporting button for "Snowcap Island"
-		other:AddButton({
-			Title = "Snowcap Island",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2589.534912109375, 134.9249267578125, 2333.099365234375)
-			end
-		})
-
-		-- Teleporting button for "Terrapin Island"
-		other:AddButton({
-			Title = "Terrapin Island",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(152.3716278076172, 154.91015625, 2000.9171142578125)
-			end
-		})
-
-		-- Teleporting button for "Terrapin Island"
-		other:AddButton({
-			Title = "Enchant Relic",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1309.2784423828125, -802.427001953125, -83.36397552490234)
-			end
-		})
-
-		other:AddButton({
-			Title = "Anient kham",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(978.1, -701.2, 1255.5)
-			end
-		})
-
-		other:AddButton({
-			Title = "Vertigo",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(103.5, -515.3, 1136.6)
-			end
-		})      
-
-		other:AddButton({
-			Title = "Anient secret kham",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1692.7, -902.5, 1444.1)
-			end
-		})
-
-		other:AddButton({
-			Title = "isla",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5799.9, 135.3, 405)
-			end
-		})
-
-		other:AddButton({
-			Title = "deep",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1510.9, -234.7, -2852.9)
-			end
-		})
-
-		other:AddButton({
-			Title = "Piscina Ácida Desolada",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1792.6, -143.4, -3296.9)
-			end
-		})
-
-		other:AddButton({
-			Title = "deepshop",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-979.2, -244.9, -2699.9)
-			end
-		})
-
-		other:AddButton({
-			Title = "secret",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3160, -745.6, 1684.2)
-			end
-		})
-
-		other:AddButton({
-			Title = "Costas Abandonaada's",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2673.4, 170.5, 1743.9)
-			end
-		})
-
-		other:AddButton({
-			Title = "Soon???",
-			Callback = function()
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3540, 143.4, 488.4)
-			end
-		})
-	end
-	
+			Notify("Success Destroy Particle")
+		end
+	})
+end
 
 Shoppy = Tap.Shop:AddSection('Shop All') do
 	Toggle(Shoppy, "Teleport To Buy", "", "Teleport To Buy")
