@@ -1,10 +1,11 @@
+
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/Knuxy92/Ui-linoria/main/Fluent/Fluent.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
 	Title = "Lao Kham",
-	SubTitle = "FLY AWAY",
+	SubTitle = "FLY AWA",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
 	Acrylic = false, 
@@ -3799,14 +3800,118 @@ MiscPlayer = Tap.Player:AddSection('Misc Player') do
 	Toggle(MiscPlayer, "Infinite Oxygen", "", "Infinite Oxygen", function(Value)
 		LocalPlayer.Character.client.oxygen.Disabled = Value
 	end)
+	Toggle(MiscPlayer, "Weather Clear", "", "Weather Clear", function(Value)
+		local OldWEA = ReplicatedStorage.world.weather.Value
+		if Value then
+			ReplicatedStorage.world.weather.Value = 'Clear' 
+		else
+			ReplicatedStorage.world.weather.Value = OldWEA
+		end
+	end)
+	Toggle(MiscPlayer, "Noclip", "", "Toggle Noclip")
+	Toggle(MiscPlayer, "Walk On Water", "", "Toggle Walk On Water", function(Value)
+		for i,v in pairs(workspace.zones.fishing:GetChildren()) do
+			if v.Name == "Ocean" then
+				v.CanCollide = Value
+			end
+		end
+	end)
+	Toggle(MiscPlayer, "Remove Fog", "", "Remove Fog", function(Value)
+		if Value then
+			if game:GetService("Lighting"):FindFirstChild("Sky") then
+				game:GetService("Lighting"):FindFirstChild("Sky").Parent = game:GetService("Lighting").bloom
+			end
+		else
+			if game:GetService("Lighting").bloom:FindFirstChild("Sky") then
+				game:GetService("Lighting").bloom:FindFirstChild("Sky").Parent = game:GetService("Lighting")
+			end
+		end
+	end)
+	Toggle(MiscPlayer, "Day Only", "", "Day Only", function(Value)
+		if Value then
+			DayOnlyLoop = RunService.Heartbeat:Connect(function()
+				game:GetService("Lighting").TimeOfDay = "12:00:00"
+			end)
+		else
+			if DayOnlyLoop then
+				DayOnlyLoop:Disconnect()
+				DayOnlyLoop = nil
+			end
+		end
+	end)
+	Toggle(MiscPlayer, "Night Only", "", "Night Only", function(Value)
+		if Value then
+			DayOnlyLoop = RunService.Heartbeat:Connect(function()
+				game:GetService("Lighting").TimeOfDay = "22:00:00"
+			end)
+		else
+			if DayOnlyLoop then
+				DayOnlyLoop:Disconnect()
+				DayOnlyLoop = nil
+			end
+		end
+	end)	
 	MiscPlayer:AddButton({
-		Title = "Checkpoint 1",
+		Title = "Rejoin Server",
+		Description = "",
 		Callback = function()
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-913.630615234375, 137.29348754882812, -1129.8995361328125)
+			TeleportService:TeleportToPlaceInstance(game.placeId, game.jobId, game.Players.LocalPlayer);
+		end,
+	})
+	MiscPlayer:AddButton({
+		Title = "Hop Server",
+		Description = "",
+		Callback = function()
+			AllFuncs.HopServer(true)
 		end
 	})
-	
-	
+	MiscPlayer:AddButton({
+		Title = "Hop Server Low",
+		Description = "",
+		Callback = function()
+			AllFuncs.HopServer(false)
+		end
+	})
+	MiscPlayer:AddButton({
+		Title = "Copy Job Id",
+		Description = "",
+		Callback = function()
+			setclipboard(tostring(game.JobId))
+			if AllFuncs and AllFuncs["Job Id"] then
+				AllFuncs["Job Id"](false)
+			end
+		end
+	})
+	MiscPlayer:AddButton({
+		Title = "Anti Lag ( Once )",
+		Description = "",
+		Callback = function()
+			for _, v in pairs(game:GetDescendants()) do
+				if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") then
+					if v.Transparency ~= 1 then
+						v.Material = Enum.Material.SmoothPlastic
+					end
+				elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+					v:Destroy()
+				end
+			end
+			Notify("Anti Lag Success")
+		end
+	})
+	MiscPlayer:AddButton({
+		Title = "Destroy All Particle",
+		Description = "",
+		Callback = function()
+			for _, v in pairs(game:GetDescendants()) do
+				if v:IsA("ParticleEmitter") or v:IsA("Trail") then
+					v:Destroy()
+				end
+			end
+			Notify("Success Destroy Particle")
+		end
+	})
+end
+
 Shoppy = Tap.Shop:AddSection('Shop All') do
 	Toggle(Shoppy, "Teleport To Buy", "", "Teleport To Buy")
 	for i,v in pairs(workspace.world.interactables:GetDescendants()) do
