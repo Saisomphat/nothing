@@ -5,7 +5,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
 	Title = "Lao Kham",
-	SubTitle = "FLY AWA",
+	SubTitle = "FLY AWAY",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
 	Acrylic = false, 
@@ -3691,6 +3691,12 @@ Seller = Tap.General:AddSection('Seller') do
 			PlayerGui.hud.safezone.shipwright.Visible = not PlayerGui.hud.safezone.shipwright.Visible 
 		end
 	})
+	Seller:AddButton({
+		Title = "nothing",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-4290.7, -996.3, 2160.5) 
+		end
+	})
 end
 
 FishList = {}
@@ -3740,16 +3746,6 @@ InfoFish = Tap.General:AddSection('Info Fish') do
 			InfoRarity:SetTitle("Rarity : "..FISHDATA[Config['Select Fish Info']].Rarity)
 			InfoChance:SetTitle("Chance : "..FISHDATA[Config['Select Fish Info']].Chance.." %")
 			InfoFavouriteBait:SetTitle("FavouriteBait : "..FISHDATA[Config['Select Fish Info']].FavouriteBait)
-		end
-	})
-	InfoFish:AddButton({
-		Title = "Karken pool",
-		Callback = function()
-			if Config['Select Fish Info'] == "" then
-				Notify("Pls Select Fish")
-				return
-			end
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-4290.7, -996.3, 2160.5)
 		end
 	})
 end
