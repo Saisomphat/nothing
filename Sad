@@ -3463,9 +3463,15 @@ Main = Tap.General:AddSection('General') do
 		end
 	})
 	Main:AddButton({
-		Title = "Select Position",
+		Title = "karken pool",
 		Callback = function()
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(19779, 415.4, 5394.3)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-4290.7, -996.3, 2160.5)
+		end
+	})
+	Main:AddButton({
+		Title = "moosewood",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(433.7972106933594, 147.07003784179688, 261.80218505859375)
 		end
 	})
 end
